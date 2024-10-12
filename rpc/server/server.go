@@ -21,3 +21,10 @@ func (s Server) Run() {
 	util.PanicError(err)
 	util.PanicError(s.Server.Serve(l))
 }
+
+func NewServer(cfg *config.Config) *Server {
+	return &Server{
+		Server: &grpc.Server{},
+		Config: cfg,
+	}
+}

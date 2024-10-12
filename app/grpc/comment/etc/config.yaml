@@ -1,0 +1,8 @@
+server_port: 9001
+
+mysql:
+  mysqlDNS: "debian-sys-maint:l3BkmCtvLyjPCMlw@tcp(127.0.0.1:3306)/comment?charset=utf8mb4&parseTime=True&loc=Local"
+  isDebug: true
+
+rpc:
+  comment: "127.0.0.1:10001"

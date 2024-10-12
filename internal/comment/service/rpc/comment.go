@@ -8,10 +8,17 @@ import (
 )
 
 type CommentService struct {
-	rpcSpec.UnimplementedCommentServiceServer
+	*rpcSpec.UnimplementedCommentServiceServer
 	*query.Query
 }
 
 func (s CommentService) CreateComment(ctx context.Context, request *rpcSpec.CreateCommentRequest) (*emptypb.Empty, error) {
 	return &emptypb.Empty{}, nil
+}
+
+func NewCommentService(query *query.Query) *CommentService {
+	return &CommentService{
+		UnimplementedCommentServiceServer: &rpcSpec.UnimplementedCommentServiceServer{},
+		Query:                             query,
+	}
 }
