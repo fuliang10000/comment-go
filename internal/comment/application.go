@@ -22,13 +22,6 @@ func (s Server) Run() {
 	s.Server.Run()
 }
 
-func NewServer(rpc *rpcServer.Server, comment *rpcService.CommentService) *Server {
-	return &Server{
-		Server:         rpc,
-		CommentService: comment,
-	}
-}
-
 func Run() {
 	container := dig.New()
 
@@ -36,11 +29,16 @@ func Run() {
 	util.PanicError(container.Provide(config.RpcConfig))
 	util.PanicError(container.Provide(QueryInit))
 	util.PanicError(container.Provide(rpc.NewCommentService))
-	util.PanicError(container.Provide(rpcService.NewCommentService))
-	util.PanicError(container.Provide(NewServer))
 	util.PanicError(container.Provide(rpcServer.NewServer))
+	util.PanicError(container.Provide(rpcService.NewCommentService))
 
-	util.PanicError(container.Invoke(func(server *Server) {
-		server.Run()
+	var srv *Server
+	util.PanicError(container.Invoke(func(rpc *rpcServer.Server, comment *rpcService.CommentService) {
+		srv = &Server{
+			Server:         rpc,
+			CommentService: comment,
+		}
 	}))
+
+	srv.Run()
 }

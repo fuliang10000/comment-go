@@ -15,8 +15,8 @@ type Server struct {
 }
 
 func (s Server) Run() {
-	addr := fmt.Sprintf(":%d", s.Config.ServerPort)
-	slog.Info("GRPC server正在运行...：" + addr)
+	addr := fmt.Sprintf(":%d", s.ServerPort)
+	slog.Info("GRPC.Server正在运行...: " + addr)
 	l, err := net.Listen("tcp", addr)
 	util.PanicError(err)
 	util.PanicError(s.Server.Serve(l))
@@ -24,7 +24,7 @@ func (s Server) Run() {
 
 func NewServer(cfg *config.Config) *Server {
 	return &Server{
-		Server: &grpc.Server{},
+		Server: grpc.NewServer(),
 		Config: cfg,
 	}
 }

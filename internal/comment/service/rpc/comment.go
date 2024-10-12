@@ -8,7 +8,7 @@ import (
 )
 
 type CommentService struct {
-	*rpcSpec.UnimplementedCommentServiceServer
+	rpcSpec.UnimplementedCommentServiceServer
 	*query.Query
 }
 
@@ -18,7 +18,7 @@ func (s CommentService) CreateComment(ctx context.Context, request *rpcSpec.Crea
 
 func NewCommentService(query *query.Query) *CommentService {
 	return &CommentService{
-		UnimplementedCommentServiceServer: &rpcSpec.UnimplementedCommentServiceServer{},
+		UnimplementedCommentServiceServer: rpcSpec.UnimplementedCommentServiceServer{},
 		Query:                             query,
 	}
 }
