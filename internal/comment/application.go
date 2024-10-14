@@ -2,6 +2,7 @@ package comment
 
 import (
 	"commentService/app/config"
+	"commentService/internal/comment/repo"
 	rpcService "commentService/internal/comment/service/rpc"
 	"commentService/pkg/util"
 	"commentService/rpc"
@@ -28,6 +29,7 @@ func Run() {
 	util.PanicError(container.Provide(config.NewConfig))
 	util.PanicError(container.Provide(config.RpcConfig))
 	util.PanicError(container.Provide(QueryInit))
+	util.PanicError(container.Provide(repo.NewComment))
 	util.PanicError(container.Provide(rpc.NewCommentService))
 	util.PanicError(container.Provide(rpcServer.NewServer))
 	util.PanicError(container.Provide(rpcService.NewCommentService))

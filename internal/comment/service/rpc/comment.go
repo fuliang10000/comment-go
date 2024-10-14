@@ -1,7 +1,7 @@
 package rpcService
 
 import (
-	"commentService/internal/comment/dao/query"
+	"commentService/internal/comment/repo"
 	rpcSpec "commentService/rpc/proto"
 	"context"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -9,16 +9,16 @@ import (
 
 type CommentService struct {
 	rpcSpec.UnimplementedCommentServiceServer
-	*query.Query
+	*repo.Comment
 }
 
 func (s CommentService) CreateComment(ctx context.Context, request *rpcSpec.CreateCommentRequest) (*emptypb.Empty, error) {
 	return &emptypb.Empty{}, nil
 }
 
-func NewCommentService(query *query.Query) *CommentService {
+func NewCommentService(comment *repo.Comment) *CommentService {
 	return &CommentService{
 		UnimplementedCommentServiceServer: rpcSpec.UnimplementedCommentServiceServer{},
-		Query:                             query,
+		Comment:                           comment,
 	}
 }
